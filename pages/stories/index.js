@@ -1,12 +1,11 @@
 import Head from "next/head";
-import Trending from "../components/Trending";
-import styles from "../styles/Home.module.css";
-import api, { endPoints } from "../utils/api";
-import Stories from "../components/stories";
-import Hero from "../components/hero";
-import Nav from "../components/nav";
+import Trending from "../../components/Trending";
+import styles from "../../styles/Home.module.css";
+import api, { endPoints } from "../../utils/api";
+import Stories from "../../components/stories";
+import Nav from "../../components/nav";
 
-export default function Home({ data }) {
+export default function StoriesPage({ data }) {
   const hero = data.find((item) => item.title === "Hero");
   const stories = data.find((item) => item.title === "Hero2");
 
@@ -18,8 +17,6 @@ export default function Home({ data }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Nav />
-      <Hero data={hero.stories} />
-
       <Trending data={hero} />
       <Stories data={stories.stories} />
     </div>
@@ -29,7 +26,7 @@ export default function Home({ data }) {
 export const getStaticProps = async () => {
   // const stories = await api.get("stories");
   const { data } = await api.get("/categories");
-  console.log(data);
+
   return {
     props: { data },
     revalidate: 1,
